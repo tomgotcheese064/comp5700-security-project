@@ -1,0 +1,9 @@
+Enable audit Logs,ABSENT-IN-cis-r2-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r1-chain-of-thought-kdes.yaml
+Ensure that a Client CA File is Configured,ABSENT-IN-cis-r2-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r1-chain-of-thought-kdes.yaml
+Ensure that the Anonymous Auth is Not Enabled,ABSENT-IN-cis-r2-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r1-chain-of-thought-kdes.yaml
+Ensure that the kubelet kubeconfig file,ABSENT-IN-cis-r2-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r1-chain-of-thought-kdes.yaml
+Ensure that Service Account Tokens are,ABSENT-IN-cis-r1-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r2-chain-of-thought-kdes.yaml
+Ensure that the --eventRecordQPS argument is,ABSENT-IN-cis-r1-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r2-chain-of-thought-kdes.yaml
+Ensure that the --rotate-certificates argument is,ABSENT-IN-cis-r1-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r2-chain-of-thought-kdes.yaml
+Ensure that the --streaming-connection-idle-timeout argument is,ABSENT-IN-cis-r1-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r2-chain-of-thought-kdes.yaml
+Ensure that the RotateKubeletServerCertificate argument is,ABSENT-IN-cis-r1-chain-of-thought-kdes.yaml,PRESENT-IN-cis-r2-chain-of-thought-kdes.yaml
