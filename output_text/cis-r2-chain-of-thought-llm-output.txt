@@ -1,0 +1,247 @@
+*LLM Name*
+google/gemma-3-1b-it
+
+*Prompt Used*
+You are an information extraction system.
+
+Task:
+1. Read the document.
+2. Identify real security-related key data elements.
+3. Group exact requirement text under the right element.
+4. Output only the final JSON answer.
+
+Rules:
+- Use only real content from the document.
+- Ignore table of contents, page numbers, and dotted leader lines.
+- Do not use placeholders.
+- Return ONLY valid JSON.
+- No markdown fences.
+- No explanations.
+- Top-level keys must be element1, element2, element3, etc.
+
+Required JSON structure:
+{
+  "element1": {
+    "name": "real key data element",
+    "requirements": [
+      "exact requirement text from the document"
+    ]
+  }
+}
+
+Document:
+https://www.cisecurity.org/cis-securesuite/cis-securesuite-membership-terms-of-use/
+(CISLegal@cisecurity.org) and request guidance on copyright usage.
+3.1.1 Ensure that the kubeconfig file permissions are set to 644 or more restrictive
+3.1.3 Ensure that the kubelet configuration file has permissions set to 644 or more restrictive
+3.2.2 Ensure that the --authorization-mode argument is not set to AlwaysAllow (Automated) 41
+3.2.5 Ensure that the --streaming-connection-idle-timeout argument is not set to 0
+3.2.7 Ensure that the --eventRecordQPS argument is set to 0 or a level which ensures
+3.2.8 Ensure that the --rotate-certificates argument is not present or is set to true (Automated)
+3.2.9 Ensure that the RotateKubeletServerCertificate argument is set to true (Automated) .... 60
+4.1.6 Ensure that Service Account Tokens are only mounted where necessary (Automated) 75
+4.1.7 Cluster Access Manager API to streamline and enhance the management of access
+4.1.8 Limit use of the Bind, Impersonate and Escalate permissions in the Kubernetes cluster
+4.2.2 Minimize the admission of containers wishing to share the host process ID namespace
+4.2.3 Minimize the admission of containers wishing to share the host IPC namespace
+4.2.4 Minimize the admission of containers wishing to share the host network namespace
+4.5.1 Create administrative boundaries between resources using namespaces (Manual) .... 107
+5.1.1 Ensure Image Vulnerability Scanning using Amazon ECR image scanning or a third
+5.3.1 Ensure Kubernetes Secrets are encrypted using Customer Master Keys (CMKs)
+5.4.2 Ensure clusters are created with Private Endpoint Enabled and Public Access Disabled
+5.5.1 Manage Kubernetes RBAC users with AWS IAM Authenticator for Kubernetes or
+All CIS Benchmarks™ (Benchmarks) focus on technical configuration settings used to
+maintain and/or increase the security of the addressed technology, and they should be
+• Monitoring the base operating system and applications for vulnerabilities and
+quickly updating with the latest security patches.
+• Logging and monitoring user and system activity.
+cybersecurity program.
+• CIS Configuration Assessment Tool (CIS-CAT® Pro Assessor)
+audits.
+Cybersecurity is a collaborative effort, and cross functional cooperation is imperative
+efficient way. The Benchmarks are developed to be best practice configuration
+These exceptions should be properly categorized and documented for auditing
+Benchmarks, which have separate Benchmarks for Group Policy, Intune, and
+but especially true for cloud technologies. Cloud technologies change frequently
+auditing and remediation.
+Benchmarks strive to be a secure baseline, or starting point, for a specific technology,
+requirements, or local site policy may require changes as well, or an exception to a
+documented for audit purposes.
+mitigation or elimination), this should be documented for audit purposes.
+It is the responsibility of the organization to determine their overall security policy, and
+CIS has developed Build Kits for many technologies to assist in the automation of
+When remediating systems (changing configuration settings on
+o Understand the configuration (including installed applications) of the targeted
+systems. Various parts of the organization may need different configurations
+o Test the configuration changes with representative lab system(s). If issues
+systems and monitor closely for issues. If there are issues, they can be
+deploy to additional systems and monitor closely for issues. Repeat this
+Target Technology Details
+Service (EKS) following recommended security controls. This benchmark only includes
+To obtain the latest version of this guide, please visit www.cisecurity.org. If you have
+support@cisecurity.org.
+This document is intended for cluster administrators, security specialists, auditors, and
+experience with data-based information to create technology specific guidance to assist
+diverse set of backgrounds including consulting, software development, audit and
+compliance, security research, operations, government, and legal.
+process, please visit https://workbench.cisecurity.org/.
+Concise description for the recommendation's intended configuration.
+A collection of recommendations for securing a technology or a supporting platform.
+the technology.
+Any security, functionality, or operational consequences that can result from following
+Audit Procedure
+CIS Critical Security Controls® (CIS Controls®)
+Configurations” and (v8) '4.1 - Establish and Maintain a Secure Configuration Process”
+The following configuration profiles are defined by this Benchmark:
+Level 1 Configuration Profile
+1 Control Plane Components
+Security is a shared responsibility between AWS and the Amazon EKS customer. The
+shared responsibility model describes this as security of the cloud and security in the
+Security of the cloud – AWS is responsible for protecting the infrastructure that runs
+Kubernetes control plane, which includes the control plane nodes and etcd database.
+Third-party auditors regularly test and verify the effectiveness of our security as part of
+Security in the cloud – Your responsibility includes the following areas.
+• The security configuration of the data plane, including the configuration of the
+security groups that allow traffic to pass from the Amazon EKS control plane into
+• The configuration of the worker nodes and the containers themselves
+• The worker node guest operating system (including updates and security
+security patches on managed node groups. Because managed nodes run
+o Managing platform-level identity and access management, either with or in
+addition to IAM
+AWS is responsible for securing the control plane, though you might be able to
+addresses these configurations.
+2 Control Plane Configuration
+This section contains recommendations for Amazon EKS control plane logging
+configuration. Customers are able to configure logging for control plane in Amazon
+2.1 Logging
+2.1.1 Enable audit Logs (Automated)
+Control plane logs provide visibility into operation of the EKS Control plane component
+systems. The API server audit logs record all accepted and rejected requests in the
+cluster. When enabled via EKS configuration the control plane logs for a cluster are
+exported to a CloudWatch Log Group for persistence.
+Audit logs enable visibility into all API server requests from authentic and anonymous
+sources. Stored log data can be analyzed manually or with tools to identify and
+Enabling control plane logs, including API server audit logs for Amazon EKS clusters,
+significantly strengthens our security posture by providing detailed visibility into all API
+requests, thereby reducing our attack surface. By exporting these logs to a CloudWatch
+Log Group, we ensure persistent storage and facilitate both manual and automated
+analysis to quickly identify and remediate anomalous activities. While this configuration
+might slightly impact usability or performance due to the overhead of logging, the
+enhanced security and compliance benefits far outweigh these drawbacks, making it a
+critical component of our security strategy.
+Audit:
+2. Go to 'Amazon EKS' > 'Clusters' > 'CLUSTER_NAME' > 'Configuration' >
+'Logging'.
+3. This will show the control plane logging configuration:
+Audit: Enabled / Disabled
+query 'cluster.logging.clusterLogging'
+2. Go to 'Amazon EKS' > 'Clusters' > '' > 'Configuration' > 'Logging'.
+3. Click 'Manage logging'.
+Audit: Enabled
+--logging
+'{"clusterLogging":[{"types":["api","audit","authenticator","controllerManage
+Control Plane Logging is disabled by default.
+Audit: Disabled
+1. https://kubernetes.io/docs/tasks/debug-application-cluster/audit/
+3. https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html
+4. https://docs.aws.amazon.com/eks/latest/userguide/logging-using-cloudtrail.html
+8.1 Establish and Maintain an Audit Log Management
+Establish and maintain an audit log management process that defines the
+enterprise’s logging requirements. At a minimum, address the collection, review,
+and retention of audit logs for enterprise assets. Review and update documentation
+8.2 Collect Audit Logs
+Collect audit logs. Ensure that logging, per the enterprise’s audit log
+6.2 Activate audit logging
+Ensure that local logging has been enabled on all systems and networking
+6.3 Enable Detailed Logging
+Enable system logging to include detailed information such as an event source,
+2.1.2 Ensure audit logs are collected and managed (Manual)
+Ensure that audit logs are collected and managed in accordance with the enterprise’s
+audit log management process across all Kubernetes components.
+Audit logs provide visibility into the activities occurring within a Kubernetes cluster,
+enabling the detection and investigation of security incidents and policy violations.
+Proper collection and management of audit logs are essential for maintaining an audit
+trail and ensuring compliance with security policies.
+Implementing comprehensive audit logging may require additional storage and
+processing resources. Care must be taken to ensure that logs are properly secured and
+managed to avoid any potential security risks associated with log data.
+Audit:
+1. Verify audit logging is enabled for Kubernetes components:
+kubectl get --raw /api/v1/nodes/${NODE_NAME}/proxy/configz | jq
+'.kubeletConfig.auditPolicy'
+2. Ensure the audit logs are being collected and sent to a centralized logging
+kubectl get --raw /api/v1/nodes/${NODE_NAME}/proxy/stats/summary | jq
+'.auditLogs'
+3. Verify that the audit logs are being monitored and managed according to the
+enterprise’s audit log management process.
+1. Create or update the audit-policy.yaml to specify the audit logging configuration:
+apiVersion: audit.k8s.io/v1
+kind: Policy
+2. Apply the audit policy configuration to the cluster:
+kubectl apply -f <path-to-audit-policy>.yaml
+3. Ensure audit logs are forwarded to a centralized logging system like CloudWatch,
+Elasticsearch, or another log management solution:
+kubectl create configmap cluster-audit-policy --from-file=audit-policy.yaml -
+kubectl apply -f - <<EOF
+name: audit-logging
+- name: audit-log-forwarder
+image: my-log-forwarder-image
+- mountPath: /etc/kubernetes/audit
+name: audit-config
+- name: audit-config
+name: cluster-audit-policy
+
+*Prompt Type*
+chain-of-thought
+
+*LLM Output*
+{
+  "element1": {
+    "name": "Ensure that the kubeconfig file permissions",
+    "requirements": [
+      "3.1.1 Ensure that the kubeconfig file permissions are set to 644 or more restrictive"
+    ]
+  },
+  "element2": {
+    "name": "Ensure that the kubelet configuration file",
+    "requirements": [
+      "3.1.3 Ensure that the kubelet configuration file has permissions set to 644 or more restrictive"
+    ]
+  },
+  "element3": {
+    "name": "Ensure that the --authorization-mode argument is",
+    "requirements": [
+      "3.2.2 Ensure that the --authorization-mode argument is not set to AlwaysAllow (Automated)"
+    ]
+  },
+  "element4": {
+    "name": "Ensure that the --streaming-connection-idle-timeout argument is",
+    "requirements": [
+      "3.2.5 Ensure that the --streaming-connection-idle-timeout argument is not set to"
+    ]
+  },
+  "element5": {
+    "name": "Ensure that the --eventRecordQPS argument is",
+    "requirements": [
+      "3.2.7 Ensure that the --eventRecordQPS argument is set to 0 or a level which ensures"
+    ]
+  },
+  "element6": {
+    "name": "Ensure that the --rotate-certificates argument is",
+    "requirements": [
+      "3.2.8 Ensure that the --rotate-certificates argument is not present or is set to true (Automated)"
+    ]
+  },
+  "element7": {
+    "name": "Ensure that the RotateKubeletServerCertificate argument is",
+    "requirements": [
+      "3.2.9 Ensure that the RotateKubeletServerCertificate argument is set to true (Automated)"
+    ]
+  },
+  "element8": {
+    "name": "Ensure that Service Account Tokens are",
+    "requirements": [
+      "4.1.6 Ensure that Service Account Tokens are only mounted where necessary (Automated)"
+    ]
+  }
+}

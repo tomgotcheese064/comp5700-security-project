@@ -1,0 +1,8 @@
+element1:
+  name: Audit Logs
+  requirements:
+  - 2.1.1 Enable audit logs (Manual)
+element2:
+  name: Alerting
+  requirements:
+  - 2.2.1 Configure alerting (Automated)

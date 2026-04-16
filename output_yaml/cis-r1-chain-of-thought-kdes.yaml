@@ -1,0 +1,36 @@
+element1:
+  name: Enable audit Logs
+  requirements:
+  - 2.1.1 Enable audit Logs (Manual)
+element2:
+  name: Ensure that the kubeconfig file permissions
+  requirements:
+  - 3.1.1 Ensure that the kubeconfig file permissions are set to 644 or more restrictive
+    (Manual)
+element3:
+  name: Ensure that the kubelet kubeconfig file
+  requirements:
+  - 3.1.2 Ensure that the kubelet kubeconfig file ownership is set to root:root (Manual)
+element4:
+  name: Ensure that the kubelet configuration file
+  requirements:
+  - 3.1.3 Ensure that the kubelet configuration file has permissions set to 644 or
+    more restrictive (Manual)
+element5:
+  name: Ensure that the kubelet configuration file
+  requirements:
+  - 3.1.4 Ensure that the kubelet configuration file ownership is set to root:root
+    (Manual)
+element6:
+  name: Ensure that the Anonymous Auth is Not Enabled
+  requirements:
+  - 3.2.1 Ensure that the Anonymous Auth is Not Enabled (Automated)
+element7:
+  name: Ensure that the --authorization-mode argument is
+  requirements:
+  - 3.2.2 Ensure that the --authorization-mode argument is not set to AlwaysAllow
+    (Automated)
+element8:
+  name: Ensure that a Client CA File is Configured
+  requirements:
+  - 3.2.3 Ensure that a Client CA File is Configured (Manual)
